@@ -100,7 +100,7 @@ General Styles
     font-size: 150%;
   }
   
-  .wrapper {
+  #wrapper {
     width: 600px;
     display: grid;
     grid-gap: 1px;
