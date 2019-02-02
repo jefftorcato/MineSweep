@@ -40,8 +40,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function init_grid(size) {
         var i;
+        let row_size;
 
+        if (size == 25) {
+            row_size = 5;
+        } else if (size == 36) {
+            row_size = 6;
+        } else {
+            row_size = 7;
+        }
 
+        let root = document.documentElement;
+        root.style.setProperty('--col-size', row_size);
+        root.style.setProperty('--row-size', row_size);
+        
         for (i = 1; i <= size; i++) {
             var div = document.createElement("DIV");
             div.setAttribute("id", size);
