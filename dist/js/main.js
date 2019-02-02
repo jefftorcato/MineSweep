@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 init_grid(size);
                 break;
 
-            case "Difficult":
+            case "Hard":
                 size = 49;
                 console.log(size);
                 init_grid(size);
