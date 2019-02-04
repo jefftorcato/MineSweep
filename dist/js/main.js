@@ -19,18 +19,20 @@ function load(url, element) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    let arr = [] // Global Variable Mine placement
+    let arr = []; // Global Variable Mine placement
+    let hud;  // Global Hud object
 
     document.addEventListener('click', function (event) {
         let difficulty;
         if (event.target.classList.contains('btn-difficulty')) {
             difficulty = event.target.innerText;
-            console.log(difficulty);
+            //console.log(difficulty);
             document.getElementById('basediv').style.display = 'flex';
             document.getElementById('basediv').style.flexDirection = 'column';
             document.getElementById('basediv').style.alignItems = 'center';
             document.getElementById('basediv').style.justifyContent = 'center';
             document.getElementById('intro').style.display = 'none';
+            document.getElementById('navbar').style.display = 'block';
             init_size(difficulty);
         }
     }, false);
@@ -39,19 +41,19 @@ document.addEventListener("DOMContentLoaded", function () {
         let size = 0;
         switch (difficulty) {
             case "Easy":
-                size = 49;
-                console.log(size);
-                init_grid(size);
-                break;
-
-            case "Medium":
                 size = 64;
                 console.log(size);
                 init_grid(size);
                 break;
 
-            case "Hard":
+            case "Medium":
                 size = 81;
+                console.log(size);
+                init_grid(size);
+                break;
+
+            case "Hard":
+                size = 100;
                 console.log(size);
                 init_grid(size);
                 break;
@@ -66,12 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
         var i;
         let row_size;
 
-        if (size == 49) {
-            row_size = 7;
-        } else if (size == 64) {
+        if (size == 64) {
             row_size = 8;
-        } else {
+        } else if (size == 81) {
             row_size = 9;
+        } else {
+            row_size = 10;
         }
 
         let root = document.documentElement;
@@ -100,17 +102,37 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(arr);
     }
 
+    function draw_hud(hud){
+
+    }
+
+    function check_mine(here_flag){
+        if(arr.indexOf(here_flag) == -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
     document.addEventListener('contextmenu', function (event) {
         event.preventDefault();
-        let here_flag = parseInt(event.target.getAttribute('name'));
         
-        console.log(here_flag);
-        if(!isNaN(here_flag)){
-            var flag = document.createElement("IMG");
-            flag.setAttribute('src', './dist/img/flag.svg');
-            flag.setAttribute("class", "flag");
-            document.getElementById(here_flag).appendChild(flag);
+        if (event.target.getAttribute('name') == "isflag") {
+            console.log(event.target.getAttribute('id'));
+            x = document.getElementById(event.target.getAttribute('id'));
+            x.parentNode.removeChild(x);
+        } else {
+            let here_flag = parseInt(event.target.getAttribute('name'));
+            console.log(here_flag);
+            if (!isNaN(here_flag)) {
+                a = check_mine(here_flag);
+                var flag = document.createElement("IMG");
+                flag.setAttribute('src', './dist/img/flag.svg');
+                flag.setAttribute("class", "flag");
+                flag.setAttribute('name', 'isflag');
+                flag.setAttribute('id', 'flag'+here_flag);
+                document.getElementById(here_flag).appendChild(flag);
+            }
         }
     }, false)
 });

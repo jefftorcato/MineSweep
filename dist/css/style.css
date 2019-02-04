@@ -156,6 +156,7 @@ h6 {
 }
 
 #navbar{
+    display: none;
     position: absolute;
     left: 30%;
     top: 0px;
@@ -178,15 +179,15 @@ h6 {
     background-color: lightgrey;
     color: #fff;
     border-radius: 0px;
-    padding: 20px;
+    padding: 10px;
     font-size: 150%;
 }
 
 #wrapper {
     display: grid;
     grid-gap: 1px;
-    grid-template-columns: repeat(var(--col-size), 50px);
-    grid-template-rows: repeat(var(--row-size), 50px);
+    grid-template-columns: repeat(var(--col-size), 40px);
+    grid-template-rows: repeat(var(--row-size), 40px);
     grid-auto-flow: row;
 }
 
