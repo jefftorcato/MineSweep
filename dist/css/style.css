@@ -162,8 +162,10 @@ h6 {
     top: 0px;
     width: 40%;
     height: 7%;
-    
-    background-color: rgb(214, 214, 214);
+    border-bottom: 2px solid #fff ;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background-color: rgb(65, 65, 65);
 }
 
 .clearfix:after {

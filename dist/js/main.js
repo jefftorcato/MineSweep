@@ -20,8 +20,10 @@ function load(url, element) {
 document.addEventListener("DOMContentLoaded", function () {
 
     let arr = []; // Global Variable Mine placement
-    let hud;  // Global Hud object
-
+    let hud; // Global Hud object
+    let true_mine_flagged = 0;
+    let total_divs_flagged = 0;
+    
     document.addEventListener('click', function (event) {
         let difficulty;
         if (event.target.classList.contains('btn-difficulty')) {
@@ -86,14 +88,17 @@ document.addEventListener("DOMContentLoaded", function () {
             div.setAttribute("id", i);
             div.setAttribute("name", i);
             div.setAttribute("class", "box");
+            /*var node = document.createTextNode(i);
+            div.appendChild(node);*/
             document.getElementById("wrapper").appendChild(div);
+            
         }
         assign_mines(size);
     }
 
     function assign_mines(size) {
 
-        let mine_count = Math.floor((size / 100) * 40);
+        let mine_count = Math.floor((size / 100) * 5);
 
         while (arr.length <= mine_count) {
             var r = Math.floor(Math.random() * 100) + 1;
@@ -102,36 +107,52 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(arr);
     }
 
-    function draw_hud(hud){
+    function draw_hud(hud) {
 
     }
 
-    function check_mine(here_flag){
-        if(arr.indexOf(here_flag) == -1){
+    function check_mine(here_flag) {
+        if (arr.indexOf(here_flag) == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
     document.addEventListener('contextmenu', function (event) {
         event.preventDefault();
-        
-        if (event.target.getAttribute('name') == "isflag") {
-            console.log(event.target.getAttribute('id'));
-            x = document.getElementById(event.target.getAttribute('id'));
-            x.parentNode.removeChild(x);
+
+        if (true_mine_flagged == arr.length && total_divs_flagged == arr.length) {
+            alert("Game Over");
         } else {
-            let here_flag = parseInt(event.target.getAttribute('name'));
-            console.log(here_flag);
-            if (!isNaN(here_flag)) {
-                a = check_mine(here_flag);
-                var flag = document.createElement("IMG");
-                flag.setAttribute('src', './dist/img/flag.svg');
-                flag.setAttribute("class", "flag");
-                flag.setAttribute('name', 'isflag');
-                flag.setAttribute('id', 'flag'+here_flag);
-                document.getElementById(here_flag).appendChild(flag);
+            if (event.target.getAttribute('name') == "isflag") {
+                console.log(event.target.getAttribute('id'));
+                x = document.getElementById(event.target.getAttribute('id'));
+                x.parentNode.removeChild(x);
+                total_divs_flagged -= 1;
+            } else {
+                let here_flag = parseInt(event.target.getAttribute('name'));
+                console.log(here_flag);
+                if (!isNaN(here_flag)) {
+                    a = check_mine(here_flag);
+                    console.log(a);
+                    var flag = document.createElement("IMG");
+                    flag.setAttribute('src', './dist/img/flag.svg');
+                    flag.setAttribute("class", "flag");
+                    flag.setAttribute('name', 'isflag');
+                    flag.setAttribute('id', 'flag' + here_flag);
+                    document.getElementById(here_flag).appendChild(flag);
+
+                    if (a) {
+                        true_mine_flagged++;
+                        total_divs_flagged++;
+                    } else {
+                        total_divs_flagged++;
+                    }
+
+                    console.log(true_mine_flagged);
+                    console.log(total_divs_flagged);
+                }
             }
         }
     }, false)
