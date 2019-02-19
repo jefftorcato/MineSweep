@@ -23,9 +23,9 @@
             <div id="condition">&copy; Developed by Jeff Torcato</div>
         </div>
         <div id="basediv">
-            <canvas id="myCanvas">
+            <div id="wrapper">
 
-            </canvas>
+            </div>
         </div>
         <nav id="navbar">
 

@@ -27,7 +27,7 @@ body{
 .container {
     /*background: url(../img/background.png)top center;
     background-size: cover;*/
-    background: black;
+    background: white;
     width: 100%;
     height: 100vh;
     overflow: hidden;
