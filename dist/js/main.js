@@ -4,7 +4,8 @@ let size=0;
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 let width = 50;
-var img = document.getElementById("img-flag");
+var img_flag = document.getElementById("img-flag");
+var img_mine = document.getElementById("img-mine");
 
 
 function closeWindow() {
@@ -25,16 +26,22 @@ function setup(difficulty){
     switch (difficulty) {
         case "Easy":
             size = 8;
+            c.setAttribute("width", "400");
+            c.setAttribute("height", "400");
             console.log(size);    
             break;
 
         case "Medium":
             size = 9;
+            c.setAttribute("width", "450");
+            c.setAttribute("height", "450");
             console.log(size); 
             break;
 
         case "Hard":
             size = 10;
+            c.setAttribute("width", "500");
+            c.setAttribute("height", "500");
             console.log(size);
             break;
 
@@ -45,7 +52,12 @@ function setup(difficulty){
     grid = initializeArray(size,size);
     for(i=0; i< size; i++){
         for(j=0; j< size; j++){
-            grid[i][j] = new Tile(i*width, j*width, width);
+            grid[i][j] = new Tile(i, j, width);
+        }
+    }
+    for(i=0; i< size; i++){
+        for(j=0; j< size; j++){
+            grid[i][j].countMines();
         }
     }
     console.log(grid);
@@ -72,36 +84,8 @@ function switchToGame(event){
         document.getElementById('basediv').style.justifyContent = 'center';
         document.getElementById('intro').style.display = 'none';
         document.getElementById('navbar').style.display = 'block';
-        c.setAttribute("width", "500");
-        c.setAttribute("height", "500");
+
         setup(difficulty);
-    }
-}
-
-function init_size(difficulty) {
-    let size = 0;
-    switch (difficulty) {
-        case "Easy":
-            size = 64;
-            console.log(size);
-            init_grid(size);
-            break;
-
-        case "Medium":
-            size = 81;
-            console.log(size);
-            init_grid(size);
-            break;
-
-        case "Hard":
-            size = 100;
-            console.log(size);
-            init_grid(size);
-            break;
-
-        default:
-            alert("Some random stuff");
-            break;
     }
 }
 
