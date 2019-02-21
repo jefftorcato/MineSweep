@@ -4,14 +4,20 @@ let size=0;
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 let width = 50;
-let total_mines = 10;
+let total_mines = 0;
 var img_flag = document.getElementById("img-flag");
 var img_mine = document.getElementById("img-mine");
-var possible_locations = [];
+
 
 function closeWindow() {
     var x = confirm('Exit Game?');
     if (x) window.close();
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function initializeArray(col, row){
@@ -29,6 +35,7 @@ function setup(difficulty){
             size = 8;
             c.setAttribute("width", "400");
             c.setAttribute("height", "400");
+            total_mines=10;
             console.log(size);    
             break;
 
@@ -36,6 +43,7 @@ function setup(difficulty){
             size = 9;
             c.setAttribute("width", "450");
             c.setAttribute("height", "450");
+            total_mines=30;
             console.log(size); 
             break;
 
@@ -43,6 +51,7 @@ function setup(difficulty){
             size = 10;
             c.setAttribute("width", "500");
             c.setAttribute("height", "500");
+            total_mines=35;
             console.log(size);
             break;
 
@@ -50,20 +59,39 @@ function setup(difficulty){
             alert("Some random stuff");
             break;
     }
+
     grid = initializeArray(size,size);
+
     for(i=0; i< size; i++){
         for(j=0; j< size; j++){
-            possible_locations.push([i,j]);
+            
             grid[i][j] = new Tile(i, j, width);
         }
     }
-    //console.log(possible_locations);
+
+    let possible_locations = [];
+
+    for(i=0; i< size; i++){
+        for(j=0; j< size; j++){
+            console.log(i+""+j);
+            possible_locations.push([i,j]);
+        }
+    }
+    console.log(possible_locations);
+
+    var temp_size = size * size;
 
     for(k = 0; k < total_mines; k++){
-        var val = Math.floor(Math.random(possible_locations.length));
+        var val = getRandomInt(1,temp_size) - 1;
+        //console.log(val);
         var selected = possible_locations[val];
+        console.log(val);
+        console.log(selected);
+        console.log(temp_size);
         var i = selected[0];
         var j = selected[1];
+        possible_locations.splice(val, 1);
+        temp_size--;
         grid[i][j].mine = true;
     }
 

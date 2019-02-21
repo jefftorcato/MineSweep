@@ -5,7 +5,7 @@ function Tile(i, j, width) {
     this.y = j * width;
     this.width = width;
     this.mine = false;
-    this.revealed = true;
+    this.revealed = false;
     this.count = 0;
 }
 
@@ -20,10 +20,9 @@ Tile.prototype.show = function(){
             //ctx.stroke();
             ctx.drawImage(img_mine, this.x + this.width * 0.25, this.y + this.width * 0.25, this.width * 0.5, this.width * 0.5);
         } else {
-            //ctx.fillStyle = "#D3D3D3";
-            //ctx.fill();
-            //ctx.rect(this.x, this.y, this.width, this.width);
+
             if(this.count > 0) {
+                ctx.fillStyle = "black";
                 ctx.textAlign = "center";
                 ctx.font = "20px Arial";
                 ctx.fillText(this.count,this.x + this.width * 0.5, this.y + this.width * 0.6);
@@ -35,7 +34,8 @@ Tile.prototype.show = function(){
 
 Tile.prototype.countMines = function () {
     if(this.mine){
-        return -1;
+        this.count = -1;
+        return;
     }
     var total = 0;
     for(var xoff = -1; xoff <= 1; xoff++){
@@ -63,4 +63,23 @@ Tile.prototype.coordinates = function(x,y){
 Tile.prototype.reveal = function(){
     console.log("here");
     this.revealed = true;
+    if(this.count == 0){
+        this.floodFill();
+    }
+}
+
+Tile.prototype.floodFill = function(){
+    for(var xoff = -1; xoff <= 1; xoff++){
+        for(var yoff = -1; yoff <= 1; yoff++){
+            var i = this.i + xoff;
+            var j = this.j + yoff;
+            if(i > -1 && i < size && j > -1 && j < size){
+                var neighbor = grid[i][j];
+                if(!neighbor.mine && !neighbor.revealed){
+                    neighbor.reveal();
+                    neighbor.show();
+                }
+            }
+        }
+    }
 }
