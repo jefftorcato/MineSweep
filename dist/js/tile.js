@@ -27,9 +27,11 @@ Tile.prototype.show = function(){
             //ctx.fillStyle = "#D3D3D3";
             //ctx.fill();
             //ctx.rect(this.x, this.y, this.width, this.width);
-            ctx.textAlign = "center";
-            ctx.font = "20px Arial";
-            ctx.fillText(this.count,this.x + this.width * 0.5, this.y + this.width * 0.6);
+            if(this.count > 0) {
+                ctx.textAlign = "center";
+                ctx.font = "20px Arial";
+                ctx.fillText(this.count,this.x + this.width * 0.5, this.y + this.width * 0.6);
+            }
         }
     }
     
