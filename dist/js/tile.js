@@ -4,11 +4,7 @@ function Tile(i, j, width) {
     this.x = i * width;
     this.y = j * width;
     this.width = width;
-    if(Math.random() < 0.25){
-        this.mine = true;
-    } else {
-        this.mine = false;
-    }
+    this.mine = false;
     this.revealed = true;
     this.count = 0;
 }

@@ -4,9 +4,10 @@ let size=0;
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 let width = 50;
+let total_mines = 10;
 var img_flag = document.getElementById("img-flag");
 var img_mine = document.getElementById("img-mine");
-
+var possible_locations = [];
 
 function closeWindow() {
     var x = confirm('Exit Game?');
@@ -52,9 +53,22 @@ function setup(difficulty){
     grid = initializeArray(size,size);
     for(i=0; i< size; i++){
         for(j=0; j< size; j++){
+            possible_locations.push([i,j]);
             grid[i][j] = new Tile(i, j, width);
         }
     }
+    //console.log(possible_locations);
+
+    for(k = 0; k < total_mines; k++){
+        var val = Math.floor(Math.random(possible_locations.length));
+        var selected = possible_locations[val];
+        var i = selected[0];
+        var j = selected[1];
+        grid[i][j].mine = true;
+    }
+
+
+
     for(i=0; i< size; i++){
         for(j=0; j< size; j++){
             grid[i][j].countMines();
