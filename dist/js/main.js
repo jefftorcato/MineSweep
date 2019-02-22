@@ -7,6 +7,7 @@ let width = 50;
 let total_mines = 0;
 var img_flag = document.getElementById("img-flag");
 var img_mine = document.getElementById("img-mine");
+var img_sqr = document.getElementById("img-sqt0");
 
 
 function closeWindow() {

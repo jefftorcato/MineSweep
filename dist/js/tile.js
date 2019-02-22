@@ -20,7 +20,7 @@ Tile.prototype.show = function(){
             //ctx.stroke();
             ctx.drawImage(img_mine, this.x + this.width * 0.25, this.y + this.width * 0.25, this.width * 0.5, this.width * 0.5);
         } else {
-
+            ctx.drawImage(img_sqr, this.x, this.y, this.width, this.width);
             if(this.count > 0) {
                 ctx.fillStyle = "black";
                 ctx.textAlign = "center";
