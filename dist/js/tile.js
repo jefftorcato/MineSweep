@@ -24,7 +24,7 @@ Tile.prototype.show = function(){
             if(this.count > 0) {
                 ctx.fillStyle = "black";
                 ctx.textAlign = "center";
-                ctx.font = "20px Arial";
+                ctx.font = "bold 20px Arial";
                 ctx.fillText(this.count,this.x + this.width * 0.5, this.y + this.width * 0.6);
             }
         }

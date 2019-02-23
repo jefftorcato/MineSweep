@@ -77,7 +77,7 @@ h6 {
     content: ' ';
     height: 33px;
     width: 2px;
-    background-color: white;
+    background-color: black;
   }
   .close:before {
     transform: rotate(45deg);
