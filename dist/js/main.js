@@ -138,7 +138,16 @@ function clear() {
 
 }
 
-function mousePress(event){
+function gameOver() {
+    for(i=0; i< size; i++){
+        for(j=0; j<size; j++){
+            grid[i][j].revealed = true;
+            grid[i][j].show();
+        }
+    }
+}
+
+function leftmousePress(event){
     var lol = c.getBoundingClientRect();
     var x = event.clientX - lol.left;
     var y = event.clientY - lol.top;
@@ -149,16 +158,18 @@ function mousePress(event){
             if(grid[i][j].coordinates(x,y)){
                 grid[i][j].reveal();
                 grid[i][j].show ();
+                if(grid[i][j].mine){
+                    gameOver();
+                }
             }
         }
     }
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
 
     document.addEventListener('click', switchToGame , false);
-    c.addEventListener('click', mousePress , false);
+    c.addEventListener('click', leftmousePress , false);
+    c.addEventListener('contextmenu', rightmousePress , false);
 
 });
