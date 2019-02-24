@@ -30,9 +30,14 @@ Tile.prototype.show = function(){
             ctx.stroke();
         }
     }
-    else{
+    else if(!this.revealed && !this.flagged){
+        console.log("here");
+        ctx.clearRect(this.x, this.y, this.width, this.width);
         ctx.rect(this.x, this.y, this.width, this.width);
         ctx.stroke();
+    }
+    else if(!this.revealed && this.flagged){
+        ctx.drawImage(img_flag, this.x + this.width * 0.25, this.y + this.width * 0.25, this.width * 0.5, this.width * 0.5);
     }
     
 }
@@ -74,8 +79,10 @@ Tile.prototype.reveal = function(){
 }
 
 Tile.prototype.floodFill = function(){
+    console.log("here");
     for(var xoff = -1; xoff <= 1; xoff++){
         for(var yoff = -1; yoff <= 1; yoff++){
+            console.log("xoff: " + xoff + " yoff: " + yoff);
             var i = this.i + xoff;
             var j = this.j + yoff;
             if(i > -1 && i < size && j > -1 && j < size){
@@ -90,5 +97,11 @@ Tile.prototype.floodFill = function(){
 }
 
 Tile.prototype.markFlag = function () {
-    this.flagged = true;
+    if(this.flagged){
+        this.flagged = false;
+        flag_count++;
+    }else{
+        this.flagged = true;
+        flag_count--;
+    }
 }

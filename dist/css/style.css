@@ -124,7 +124,7 @@ h6 {
     justify-content: center;
 }
 
-#intro #menu button {
+#intro #menu button.btn-difficulty {
     background-color: #555555;
     border: none;
     font-family: 'OCR A Extended','lucida console';
@@ -139,7 +139,7 @@ h6 {
     box-shadow: 0 9px #999;
 }
 
-#intro #menu button:active {
+#intro #menu button.btn-difficulty:active {
     background-color: #494949;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
@@ -153,19 +153,6 @@ h6 {
 #basediv {
     display: none;
     height: 100%;
-}
-
-#navbar{
-    display: none;
-    position: absolute;
-    left: 30%;
-    top: 0px;
-    width: 40%;
-    height: 7%;
-    border-bottom: 2px solid #fff ;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-    background-color: rgb(65, 65, 65);
 }
 
 .clearfix:after {
@@ -197,6 +184,80 @@ h6 {
     position: relative;
     width: 12px;
 }
+
+/***************************************************
+                    Navbar
+****************************************************/
+
+#navbar{
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: 0px;
+    width: 40%;
+    height: 7%;
+    border-bottom: 2px solid #fff ;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background-color: rgb(65, 65, 65);
+}
+
+.nav-group{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#flag-count{
+    display: inline;
+    font-size: 40px;
+}
+
+#navbar .nav-group img{
+    width: 40px;
+    height: 40px;
+}
+
+#timer{
+    font-size:250%;
+    display:block;
+    position: relative;
+    
+  }
+
+  button.btn-reset{
+    background-color: #555555;
+    border: none;
+    font-family: 'OCR A Extended','lucida console';
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-bottom: 10%;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+
+  button.btn-reset:active{
+    background-color: #494949;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
 /**************************************************
                 Mobile Responsive Styles
   ****************************************************/
+  @media only screen and (max-width: 768px) {
+
+    #navbar{
+        width: 100%;
+        left: 0px;
+        height: 9%;
+    }
+
+    .close{
+        top:70px;
+    }
+  }

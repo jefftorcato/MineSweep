@@ -6,6 +6,7 @@ let ctx = c.getContext("2d");
 let width = 50;
 let total_mines = 0;
 let flag_count = 10;
+let mouse_pressed_first = false;
 var img_flag = document.getElementById("img-flag");
 var img_mine = document.getElementById("img-mine");
 var img_sqr = document.getElementById("img-sqt0");
@@ -127,8 +128,10 @@ function switchToGame(event){
         document.getElementById('basediv').style.alignItems = 'center';
         document.getElementById('basediv').style.justifyContent = 'center';
         document.getElementById('intro').style.display = 'none';
-        document.getElementById('navbar').style.display = 'block';
-
+        document.getElementById('navbar').style.display = 'flex';
+        document.getElementById('navbar').style.justifyContent = 'space-evenly';
+        document.getElementById('navbar').style.alignItems = 'center';
+        document.getElementById('flag-count').textContent = flag_count;
         setup(difficulty);
     }
 }
@@ -146,9 +149,20 @@ function gameOver() {
             grid[i][j].show();
         }
     }
+    stopwatch.stop();
+}
+
+function updateGUI(){
+    document.getElementById('flag-count').textContent = flag_count;
 }
 
 function leftmousePress(event){
+
+    if(!mouse_pressed_first){
+        mouse_pressed_first = true;
+        stopwatch.start();
+    }
+
     var lol = c.getBoundingClientRect();
     var x = event.clientX - lol.left;
     var y = event.clientY - lol.top;
@@ -172,6 +186,16 @@ function rightmousePress(event){
     var lol = c.getBoundingClientRect();
     var x = event.clientX - lol.left;
     var y = event.clientY - lol.top;
+
+    for(i=0; i< size; i++){
+        for(j=0; j<size; j++){
+            if(grid[i][j].coordinates(x,y)){
+                grid[i][j].markFlag();
+                grid[i][j].show();
+                updateGUI();
+            }
+        }
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function () {

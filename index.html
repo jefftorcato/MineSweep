@@ -13,7 +13,7 @@
     <div class="container">
         <div id="intro">
             <div id="intro-title">
-                <img src="./dist/img/logo.png" alt="Minesweeper Logo" srcset="">
+                <img src="./dist/img/logo1.png" alt="Minesweeper Logo" srcset="">
             </div>
             <div id="menu">
                 <button class="btn-difficulty">Easy</button>
@@ -28,16 +28,25 @@
             </canvas>
         </div>
         <nav id="navbar">
-            <div class="nav-img">
-                <img id="img-flag" src="./dist/img/flag.svg" width="50" height="50" alt="" srcset="">
-                <img id="img-mine" src="./dist/img/mine.png" width="50" height="50" alt="" srcset="" style="display:none;">
-                <img id="img-sqt0" src="./dist/img/sqt0.gif" width="50" height="50" alt="" srcset="" style="display:none;">
+            <div id="" class="nav-group">
+                <img id="img-flag" src="./dist/img/flag.svg" alt="" srcset="">
+                <div id="flag-count"></div>
             </div>
-            </nav>
+            <div class="nav-group">
+                <button class="btn-reset">Reset</button>
+            </div>
+            <div id="timer-container" class="nav-group">
+                <span id="timer">00:00</span>
+            </div>
+        </nav>
+        <img id="img-mine" src="./dist/img/mine.png" width="50" height="50" alt="" srcset="" style="display:none;">
+        <img id="img-sqt0" src="./dist/img/sqt0.gif" width="50" height="50" alt="" srcset="" style="display:none;">
         <a href="javascript:closeWindow();" class="close"></a>
     </div>
+    <script src="./dist/js/timer.js"></script>
     <script src="./dist/js/main.js"></script>
     <script src="./dist/js/tile.js"></script>
+
 </body>
 
 </html>
