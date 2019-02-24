@@ -5,6 +5,7 @@ let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 let width = 50;
 let total_mines = 0;
+let flag_count = 10;
 var img_flag = document.getElementById("img-flag");
 var img_mine = document.getElementById("img-mine");
 var img_sqr = document.getElementById("img-sqt0");
@@ -164,6 +165,13 @@ function leftmousePress(event){
             }
         }
     }
+}
+
+function rightmousePress(event){
+    event.preventDefault()
+    var lol = c.getBoundingClientRect();
+    var x = event.clientX - lol.left;
+    var y = event.clientY - lol.top;
 }
 
 document.addEventListener("DOMContentLoaded", function () {

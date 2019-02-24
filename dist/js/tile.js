@@ -6,13 +6,12 @@ function Tile(i, j, width) {
     this.width = width;
     this.mine = false;
     this.revealed = false;
+    this.flagged = false;
     this.count = 0;
 }
 
 Tile.prototype.show = function(){
     
-    ctx.rect(this.x, this.y, this.width, this.width);
-    ctx.stroke();
     if(this.revealed){
         if(this.mine){
             //ctx.beginPath();
@@ -27,7 +26,13 @@ Tile.prototype.show = function(){
                 ctx.font = "bold 20px Arial";
                 ctx.fillText(this.count,this.x + this.width * 0.5, this.y + this.width * 0.6);
             }
+            ctx.rect(this.x, this.y, this.width, this.width);
+            ctx.stroke();
         }
+    }
+    else{
+        ctx.rect(this.x, this.y, this.width, this.width);
+        ctx.stroke();
     }
     
 }
@@ -82,4 +87,8 @@ Tile.prototype.floodFill = function(){
             }
         }
     }
+}
+
+Tile.prototype.markFlag = function () {
+    this.flagged = true;
 }
