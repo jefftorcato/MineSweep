@@ -138,6 +138,7 @@ function switchToGame(event) {
         stopwatch.stop();
         stopwatch.update("00:00");
         flag_count = 10;
+        document.getElementById('flag-count').textContent = flag_count;
         mouse_pressed_first = false;
         setup(difficulty);
     }
