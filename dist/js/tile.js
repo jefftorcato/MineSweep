@@ -12,7 +12,7 @@ function Tile(i, j, width) {
 
 Tile.prototype.show = function () {
 
-    if (this.revealed) {
+    if (this.revealed) {  //If revealed is set to true
         if (this.mine) {
             //ctx.beginPath();
             //ctx.arc(this.x + this.width * 0.5, this.y + this.width * 0.5, this.width * 0.4, 0, 2 * Math.PI);
@@ -70,9 +70,11 @@ Tile.prototype.coordinates = function (x, y) {
 
 Tile.prototype.reveal = function () {
     console.log("here");
-    this.revealed = true;
-    if (this.count == 0) {
-        this.floodFill();
+    if(!this.flagged){ // If tile is flagged don't reveal
+        this.revealed = true;
+        if (this.count == 0) {
+            this.floodFill();
+        }
     }
 }
 
