@@ -97,15 +97,17 @@ Tile.prototype.floodFill = function () {
 }
 
 Tile.prototype.markFlag = function () {
-    if (this.flagged) {
-        this.flagged = false;
-        flag_count++;
-        this.show();
-    } else if(!this.flagged && flag_count > 0) {
-        this.flagged = true;
-        flag_count--;
-        this.show();
-    }else{
-        alert("No more flags remaining!");
+    if(!this.revealed) {
+        if (this.flagged) {
+            this.flagged = false;
+            flag_count++;
+            this.show();
+        } else if(!this.flagged && flag_count > 0) {
+            this.flagged = true;
+            flag_count--;
+            this.show();
+        }else{
+            alert("No more flags remaining!");
+        }
     }
 }
