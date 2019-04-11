@@ -2,6 +2,7 @@
 let img_flag = document.getElementById("img-flag");
 let img_mine = document.getElementById("img-mine");
 let img_sqr = document.getElementById("img-sqt0");
+let good_audio = document.getElementById('theme');
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 let grid;
@@ -13,7 +14,6 @@ let difficulty;
 let mines_flagged;
 let game_lost = false;
 let mouse_pressed_first = false;
-
 
 
 function reset() {  //Game reset 
@@ -161,6 +161,7 @@ function drawGrid() {
 function switchToGame(event) {
 
     if (event.target.classList.contains('btn-difficulty')) {
+        good_audio.pause();
         difficulty = event.target.innerText;
         //console.log(difficulty);
         document.getElementById('basediv').style.display = 'flex';
@@ -206,7 +207,7 @@ function gameOver() {
         //overlay_timer(overlay);
         stopwatch.stop();
     } else {
-        let good_audio = document.getElementById('');
+        good_audio.load();
         good_audio.play();
         let overlay = document.getElementById('overlay');
         setTimeout( function () {
@@ -273,7 +274,7 @@ function refresh() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-
+    good_audio.play();
     document.addEventListener('click', switchToGame, false);
     c.addEventListener('click', leftmousePress, false);
     c.addEventListener('contextmenu', rightmousePress, false);
