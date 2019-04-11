@@ -1,36 +1,111 @@
 //Global Variables
-let grid;
-let size = 0;
+let img_flag = document.getElementById("img-flag");
+let img_mine = document.getElementById("img-mine");
+let img_sqr = document.getElementById("img-sqt0");
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
+let grid;
+let size = 0;
 let width = 50;
 let total_mines = 0;
-let flag_count = 10;
-let mouse_pressed_first = false;
+let flag_count;
 let difficulty;
-var img_flag = document.getElementById("img-flag");
-var img_mine = document.getElementById("img-mine");
-var img_sqr = document.getElementById("img-sqt0");
+let game_lost = false;
+let mouse_pressed_first = false;
 
 
-function closeWindow() {
+
+function reset() {  //Game reset 
+
+    stopwatch.stop();
+    stopwatch.update("00:00");
+    flag_count = total_mines;
+    mouse_pressed_first = false;
+    updateGUI();
+
+}
+
+function unfade(element) {
+    var op = 0.1;  // initial opacity
+    element.style.display = 'block';
+    var timer = setInterval(function () {
+        if (op >= 1){
+            clearInterval(timer);
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op += op * 0.1;
+    }, 10);
+}
+
+function closeWindow() {  // Game window close
     var x = confirm('Exit Game?');
     if (x) window.close();
 }
 
-function getRandomInt(min, max) {
+function getRandomInt(min, max) { // Random number generation within a range of numbers
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function initializeArray(col, row) {
+function initializeArray(col, row) { //Initialize 2D array
     var array = new Array(col);
     for (i = 0; i < array.length; i++) {
         array[i] = new Array(row);
     }
     return array;
 }
+
+function initializeGrid() { //Create new tile object for every array index
+
+    for (i = 0; i < size; i++) {
+        for (j = 0; j < size; j++) {
+
+            grid[i][j] = new Tile(i, j, width);
+        }
+    }
+
+}
+
+function initializeMines() { // Initialize mines
+
+    let possible_locations = [];
+
+    for (i = 0; i < size; i++) {
+        for (j = 0; j < size; j++) {
+            console.log(i + "" + j);
+            possible_locations.push([i, j]);
+        }
+    } // Get possible locations a mine can have on the board
+    console.log(possible_locations);
+
+    var temp_size = size * size;
+
+    for (k = 0; k < total_mines; k++) {
+        var val = getRandomInt(1, temp_size) - 1;
+        //console.log(val);
+        var selected = possible_locations[val];
+        console.log(val);
+        console.log(selected);
+        console.log(temp_size);
+        var i = selected[0];
+        var j = selected[1];
+        possible_locations.splice(val, 1);
+        temp_size--;
+        grid[i][j].mine = true;
+    } // Get a random number and pick that location from possible locations. Splice the array and remove picked location to prevent duplicates.
+
+}
+
+function initializeNeighbors() {
+
+    for (i = 0; i < size; i++) {
+        for (j = 0; j < size; j++) {
+            grid[i][j].countMines();
+        }
+    }
+} //Count number of mines for neighbours
 
 function setup(difficulty) {
 
@@ -63,49 +138,12 @@ function setup(difficulty) {
             alert("Some random stuff");
             break;
     }
-
+    flag_count = total_mines;
     grid = initializeArray(size, size);
+    initializeGrid();
+    initializeMines();
+    initializeNeighbors();
 
-    for (i = 0; i < size; i++) {
-        for (j = 0; j < size; j++) {
-
-            grid[i][j] = new Tile(i, j, width);
-        }
-    }
-
-    let possible_locations = [];
-
-    for (i = 0; i < size; i++) {
-        for (j = 0; j < size; j++) {
-            console.log(i + "" + j);
-            possible_locations.push([i, j]);
-        }
-    }
-    console.log(possible_locations);
-
-    var temp_size = size * size;
-
-    for (k = 0; k < total_mines; k++) {
-        var val = getRandomInt(1, temp_size) - 1;
-        //console.log(val);
-        var selected = possible_locations[val];
-        console.log(val);
-        console.log(selected);
-        console.log(temp_size);
-        var i = selected[0];
-        var j = selected[1];
-        possible_locations.splice(val, 1);
-        temp_size--;
-        grid[i][j].mine = true;
-    }
-
-
-
-    for (i = 0; i < size; i++) {
-        for (j = 0; j < size; j++) {
-            grid[i][j].countMines();
-        }
-    }
     console.log(grid);
     drawGrid();
 }
@@ -132,14 +170,13 @@ function switchToGame(event) {
         document.getElementById('navbar').style.display = 'flex';
         document.getElementById('navbar').style.justifyContent = 'space-evenly';
         document.getElementById('navbar').style.alignItems = 'center';
-        document.getElementById('flag-count').textContent = flag_count;
+        //document.getElementById('flag-count').textContent = flag_count;
         setup(difficulty);
+        updateGUI();
     } else if (event.target.classList.contains('btn-reset')) {
-        stopwatch.stop();
-        stopwatch.update("00:00");
-        flag_count = 10;
-        document.getElementById('flag-count').textContent = flag_count;
-        mouse_pressed_first = false;
+        //flag_count = 10;
+        //document.getElementById('flag-count').textContent = flag_count;
+        reset();
         setup(difficulty);
     }
 }
@@ -151,13 +188,24 @@ function clear() {
 }
 
 function gameOver() {
-    for (i = 0; i < size; i++) {
-        for (j = 0; j < size; j++) {
-            grid[i][j].revealed = true;
-            grid[i][j].show();
+
+    if(game_lost == true) {
+        for (i = 0; i < size; i++) {
+            for (j = 0; j < size; j++) {
+                grid[i][j].revealed = true;
+                grid[i][j].show();
+            }
         }
+        let overlay = document.getElementById('overlay');
+        setTimeout( function () {
+            unfade(overlay);
+        },1000);
+        //overlay_timer(overlay);
+        stopwatch.stop();
+    } else {
+
     }
-    stopwatch.stop();
+
 }
 
 function updateGUI() {
@@ -182,6 +230,7 @@ function leftmousePress(event) {
                 grid[i][j].reveal();
                 grid[i][j].show();
                 if (grid[i][j].mine) {
+                    game_lost = true;
                     gameOver();
                 }
             }
