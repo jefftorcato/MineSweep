@@ -11,10 +11,12 @@
 
 <body>
     <div id="overlay">
-        <div class="text">
-            Game Over
+        <div class="content">
+            <div class="text">
+                Game Over
+            </div>
+            <button id="replay">Play Again</button>
         </div>
-        <button id="replay">Play Again</button>
     </div>
     <div class="container">
         <div id="intro">
@@ -47,6 +49,10 @@
         </nav>
         <img id="img-mine" src="./dist/img/mine.png" width="50" height="50" alt="" srcset="" style="display:none;">
         <img id="img-sqt0" src="./dist/img/sqt0.gif" width="50" height="50" alt="" srcset="" style="display:none;">
+        <audio id="gameOverBad" class="player" controls>
+                <source src="./dist/audio/gameOverBad.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+        </audio>
         <a href="javascript:closeWindow();" class="close"></a>
     </div>
     <script src="./dist/js/timer.js"></script>

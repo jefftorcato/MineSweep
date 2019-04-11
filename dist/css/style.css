@@ -16,12 +16,12 @@ General Styles
     font-style: normal;
     font-weight: normal;
     src: local('OCR A Extended'), url('../OCRAEXT_2.woff') format('woff');
-    }
+}
 
-body{
-    margin:0px;
-    font-family: 'OCR A Extended','lucida console';
-    color: white;
+body {
+    margin: 0px;
+    font-family: 'OCR A Extended', 'lucida console';
+    color: black;
 }
 
 .container {
@@ -67,25 +67,30 @@ h6 {
     width: 32px;
     height: 32px;
     opacity: 0.3;
-  }
-  .close:hover {
+}
+
+.close:hover {
     opacity: 1;
-  }
-  .close:before, .close:after {
+}
+
+.close:before,
+.close:after {
     position: absolute;
     left: 15px;
     content: ' ';
     height: 33px;
     width: 2px;
     background-color: black;
-  }
-  .close:before {
+}
+
+.close:before {
     transform: rotate(45deg);
-  }
-  .close:after {
+}
+
+.close:after {
     transform: rotate(-45deg);
-  }
-  
+}
+
 
 /**************************************************
                 Intro Styles
@@ -112,7 +117,7 @@ h6 {
 
 }
 
-#intro #intro-title img{
+#intro #intro-title img {
     width: 80%;
 
 }
@@ -127,7 +132,7 @@ h6 {
 #intro #menu button.btn-difficulty {
     background-color: #555555;
     border: none;
-    font-family: 'OCR A Extended','lucida console';
+    font-family: 'OCR A Extended', 'lucida console';
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -180,7 +185,7 @@ h6 {
     grid-auto-flow: row;
 }
 
-.flag{
+.flag {
     position: relative;
     width: 12px;
 }
@@ -189,47 +194,47 @@ h6 {
                     Navbar
 ****************************************************/
 
-#navbar{
+#navbar {
     display: none;
     position: absolute;
     left: 30%;
     top: 0px;
     width: 40%;
     height: 7%;
-    border-bottom: 2px solid #fff ;
+    border-bottom: 2px solid #fff;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     background-color: rgb(65, 65, 65);
 }
 
-.nav-group{
+.nav-group {
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#flag-count{
+#flag-count {
     display: inline;
     font-size: 40px;
 }
 
-#navbar .nav-group img{
+#navbar .nav-group img {
     width: 40px;
     height: 40px;
 }
 
-#timer{
-    font-size:250%;
-    display:block;
+#timer {
+    font-size: 250%;
+    display: block;
     position: relative;
-    
-  }
 
-  button{
+}
+
+button {
     background-color: #555555;
     border: none;
-    font-family: 'OCR A Extended','lucida console';
+    font-family: 'OCR A Extended', 'lucida console';
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -239,34 +244,63 @@ h6 {
     cursor: pointer;
     border-radius: 15px;
     box-shadow: 0 9px #999;
-  }
+}
 
-  button.btn-reset:active{
+button.btn-reset:active {
     background-color: #494949;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
-  }
+}
 
-  #overlay{
-      position: fixed;
-      display: none;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.9);
-      z-index: 2;
-  }
-/**************************************************
+/****************************************************
+                Overlay
+****************************************************/
+
+#overlay {
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    z-index: 2;
+}
+
+#overlay div.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#overlay div.content div.text {
+    font-size: -webkit-xxx-large;
+    padding-bottom: 10%;
+}
+
+/****************************************************
+                Audio Player
+****************************************************/
+
+.player {
+    display: none;
+}
+
+/*****************************************************
                 Mobile Responsive Styles
   ****************************************************/
-  @media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
 
-    #navbar{
+    #navbar {
         width: 100%;
         left: 0px;
         height: 9%;
     }
 
-    .close{
-        top:70px;
+    .close {
+        top: 70px;
     }
-  }
+}

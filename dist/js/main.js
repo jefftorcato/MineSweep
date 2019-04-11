@@ -10,6 +10,7 @@ let width = 50;
 let total_mines = 0;
 let flag_count;
 let difficulty;
+let mine_flagged;
 let game_lost = false;
 let mouse_pressed_first = false;
 
@@ -27,7 +28,7 @@ function reset() {  //Game reset
 
 function unfade(element) {
     var op = 0.1;  // initial opacity
-    element.style.display = 'block';
+    element.style.display = 'flex';
     var timer = setInterval(function () {
         if (op >= 1){
             clearInterval(timer);
@@ -190,6 +191,8 @@ function clear() {
 function gameOver() {
 
     if(game_lost == true) {
+        let bad_audio = document.getElementById('gameOverBad');
+        bad_audio.play();
         for (i = 0; i < size; i++) {
             for (j = 0; j < size; j++) {
                 grid[i][j].revealed = true;
@@ -255,10 +258,14 @@ function rightmousePress(event) {
     
 }
 
+function refresh() {
+    window.location.reload();
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 
     document.addEventListener('click', switchToGame, false);
     c.addEventListener('click', leftmousePress, false);
     c.addEventListener('contextmenu', rightmousePress, false);
-
+    document.getElementById('replay').addEventListener('click',refresh,false);
 });
