@@ -10,7 +10,7 @@ let width = 50;
 let total_mines = 0;
 let flag_count;
 let difficulty;
-let mine_flagged;
+let mines_flagged;
 let game_lost = false;
 let mouse_pressed_first = false;
 

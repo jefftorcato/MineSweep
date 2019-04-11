@@ -104,10 +104,11 @@ Tile.prototype.markFlag = function () {
             this.show();
         } else if(!this.flagged && flag_count > 0) {
             if(this.mine) {
-                
-            } else {
-                
+                mines_flagged++;
             }
+            this.flagged = true;
+            flag_count--;
+            this.show();
         }else{
             alert("No more flags remaining!");
         }
