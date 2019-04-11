@@ -99,6 +99,9 @@ Tile.prototype.floodFill = function () {
 Tile.prototype.markFlag = function () {
     if(!this.revealed) {
         if (this.flagged) {
+            if(this.mine) {
+                mines_flagged--;
+            }
             this.flagged = false;
             flag_count++;
             this.show();

@@ -206,7 +206,13 @@ function gameOver() {
         //overlay_timer(overlay);
         stopwatch.stop();
     } else {
-
+        let good_audio = document.getElementById('');
+        good_audio.play();
+        let overlay = document.getElementById('overlay');
+        setTimeout( function () {
+            unfade(overlay);
+        },1000);
+        stopwatch.stop();
     }
 
 }
@@ -252,6 +258,10 @@ function rightmousePress(event) {
                 if (grid[i][j].coordinates(x, y)) {
                     grid[i][j].markFlag();
                     updateGUI();
+                    if(mines_flagged == total_mines){
+                        game_lost = false;
+                        gameOver();
+                    }
                 }
             }
         }
