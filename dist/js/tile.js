@@ -30,7 +30,7 @@ Tile.prototype.show = function () {
             ctx.stroke();
         }
     } else if (!this.revealed && !this.flagged) {
-        console.log("here");
+        //console.log("here");
         ctx.clearRect(this.x, this.y, this.width, this.width);
         ctx.rect(this.x, this.y, this.width, this.width);
         ctx.stroke();
@@ -70,7 +70,7 @@ Tile.prototype.coordinates = function (x, y) {
 }
 
 Tile.prototype.reveal = function () {
-    console.log("here");
+    //console.log("here");
     if(!this.flagged){ // If tile is flagged don't reveal
         this.revealed = true;
         if (this.count == 0) {
@@ -80,10 +80,10 @@ Tile.prototype.reveal = function () {
 }
 
 Tile.prototype.floodFill = function () {
-    console.log("here");
+    //console.log("here");
     for (var xoff = -1; xoff <= 1; xoff++) {
         for (var yoff = -1; yoff <= 1; yoff++) {
-            console.log("xoff: " + xoff + " yoff: " + yoff);
+            //console.log("xoff: " + xoff + " yoff: " + yoff);
             var i = this.i + xoff;
             var j = this.j + yoff;
             if (i > -1 && i < size && j > -1 && j < size) {

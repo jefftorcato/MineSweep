@@ -11,7 +11,7 @@ let width;
 let total_mines = 0;
 let flag_count;
 let difficulty;
-let mines_flagged;
+let mines_flagged = 0;
 let game_lost = false;
 let mouse_pressed_first = false;
 
@@ -75,11 +75,11 @@ function initializeMines() { // Initialize mines
 
     for (i = 0; i < size; i++) {
         for (j = 0; j < size; j++) {
-            console.log(i + "" + j);
+            //console.log(i + "" + j);
             possible_locations.push([i, j]);
         }
     } // Get possible locations a mine can have on the board
-    console.log(possible_locations);
+    //console.log(possible_locations);
 
     var temp_size = size * size;
 
@@ -87,9 +87,9 @@ function initializeMines() { // Initialize mines
         var val = getRandomInt(1, temp_size) - 1;
         //console.log(val);
         var selected = possible_locations[val];
-        console.log(val);
-        console.log(selected);
-        console.log(temp_size);
+        //console.log(val);
+        //console.log(selected);
+        //console.log(temp_size);
         var i = selected[0];
         var j = selected[1];
         possible_locations.splice(val, 1);
@@ -115,9 +115,9 @@ function setup(difficulty) {
             size = 10;
             c.setAttribute("width", "400");
             c.setAttribute("height", "400");
-            total_mines = Math.floor((size*size/100) * 30);
+            total_mines = Math.floor((size*size/100) * 20);
             width = 40;
-            console.log(size);
+            //console.log(size);
             break;
 
         case "Medium":
@@ -126,7 +126,7 @@ function setup(difficulty) {
             c.setAttribute("height", "450");
             total_mines = Math.floor((size*size/100) * 30);
             width = 30;
-            console.log(size);
+            //console.log(size);
             break;
 
         case "Hard":
@@ -135,7 +135,7 @@ function setup(difficulty) {
             c.setAttribute("height", "510");
             total_mines = Math.floor((size*size/100) * 25);
             width = 30;
-            console.log(size);
+            //console.log(size);
             break;
 
         default:
@@ -148,7 +148,7 @@ function setup(difficulty) {
     initializeMines();
     initializeNeighbors();
 
-    console.log(grid);
+    //console.log(grid);
     drawGrid();
 }
 
@@ -239,7 +239,7 @@ function leftmousePress(event) {
     var lol = c.getBoundingClientRect();
     var x = event.clientX - lol.left;
     var y = event.clientY - lol.top;
-    console.log(x + " " + y);
+    //console.log(x + " " + y);
 
     for (i = 0; i < size; i++) {
         for (j = 0; j < size; j++) {
@@ -266,6 +266,7 @@ function rightmousePress(event) {
                 if (grid[i][j].coordinates(x, y)) {
                     grid[i][j].markFlag();
                     updateGUI();
+                    console.log("Mines flagged: "+mines_flagged+" "+"total Mines:" + total_mines);
                     if(mines_flagged == total_mines){
                         game_lost = false;
                         gameOver();
