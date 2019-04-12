@@ -16,7 +16,7 @@ let game_lost = false;
 let mouse_pressed_first = false;
 
 
-function reset() {  //Game reset 
+function reset() { //Game reset 
 
     stopwatch.stop();
     stopwatch.update("00:00");
@@ -27,10 +27,10 @@ function reset() {  //Game reset
 }
 
 function unfade(element) {
-    var op = 0.1;  // initial opacity
+    var op = 0.1; // initial opacity
     element.style.display = 'flex';
     var timer = setInterval(function () {
-        if (op >= 1){
+        if (op >= 1) {
             clearInterval(timer);
         }
         element.style.opacity = op;
@@ -39,7 +39,7 @@ function unfade(element) {
     }, 10);
 }
 
-function closeWindow() {  // Game window close
+function closeWindow() { // Game window close
     var x = confirm('Exit Game?');
     if (x) window.close();
 }
@@ -115,7 +115,7 @@ function setup(difficulty) {
             size = 10;
             c.setAttribute("width", "400");
             c.setAttribute("height", "400");
-            total_mines = Math.floor((size*size/100) * 20);
+            total_mines = Math.floor((size * size / 100) * 20);
             width = 40;
             //console.log(size);
             break;
@@ -124,7 +124,7 @@ function setup(difficulty) {
             size = 15;
             c.setAttribute("width", "450");
             c.setAttribute("height", "450");
-            total_mines = Math.floor((size*size/100) * 30);
+            total_mines = Math.floor((size * size / 100) * 30);
             width = 30;
             //console.log(size);
             break;
@@ -133,7 +133,7 @@ function setup(difficulty) {
             size = 20;
             c.setAttribute("width", "510");
             c.setAttribute("height", "510");
-            total_mines = Math.floor((size*size/100) * 25);
+            total_mines = Math.floor((size * size / 100) * 25);
             width = 30;
             //console.log(size);
             break;
@@ -195,7 +195,7 @@ function clear() {
 function gameOver() {
 
     let overlay = document.getElementById('overlay');
-    if(game_lost == true) {
+    if (game_lost == true) {
         let lose_text = document.getElementById('lose-text');
         lose_text.style.display = 'block';
         let bad_audio = document.getElementById('gameOverBad');
@@ -206,10 +206,10 @@ function gameOver() {
                 grid[i][j].show();
             }
         }
-        
-        setTimeout( function () {
+
+        setTimeout(function () {
             unfade(overlay);
-        },1000);
+        }, 1000);
         //overlay_timer(overlay);
         stopwatch.stop();
     } else {
@@ -217,9 +217,9 @@ function gameOver() {
         win_text.style.display = 'block';
         good_audio.load();
         good_audio.play();
-        setTimeout( function () {
+        setTimeout(function () {
             unfade(overlay);
-        },1000);
+        }, 1000);
         stopwatch.stop();
     }
 
@@ -257,24 +257,24 @@ function leftmousePress(event) {
 
 function rightmousePress(event) {
     event.preventDefault()
-        var lol = c.getBoundingClientRect();
-        var x = event.clientX - lol.left;
-        var y = event.clientY - lol.top;
+    var lol = c.getBoundingClientRect();
+    var x = event.clientX - lol.left;
+    var y = event.clientY - lol.top;
 
-        for (i = 0; i < size; i++) {
-            for (j = 0; j < size; j++) {
-                if (grid[i][j].coordinates(x, y)) {
-                    grid[i][j].markFlag();
-                    updateGUI();
-                    console.log("Mines flagged: "+mines_flagged+" "+"total Mines:" + total_mines);
-                    if(mines_flagged == total_mines){
-                        game_lost = false;
-                        gameOver();
-                    }
+    for (i = 0; i < size; i++) {
+        for (j = 0; j < size; j++) {
+            if (grid[i][j].coordinates(x, y)) {
+                grid[i][j].markFlag();
+                updateGUI();
+                console.log("Mines flagged: " + mines_flagged + " " + "total Mines:" + total_mines);
+                if (mines_flagged == total_mines) {
+                    game_lost = false;
+                    gameOver();
                 }
             }
         }
-    
+    }
+
 }
 
 function refresh() {
@@ -282,9 +282,18 @@ function refresh() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    good_audio.play();
-    document.addEventListener('click', switchToGame, false);
-    c.addEventListener('click', leftmousePress, false);
-    c.addEventListener('contextmenu', rightmousePress, false);
-    document.getElementById('replay').addEventListener('click',refresh,false);
+    let playPromise = good_audio.play();
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+                // Automatic playback started!
+                // Show playing UI.
+                document.addEventListener('click', switchToGame, false);
+                c.addEventListener('click', leftmousePress, false);
+                c.addEventListener('contextmenu', rightmousePress, false);
+                document.getElementById('replay').addEventListener('click', refresh, false);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 });
