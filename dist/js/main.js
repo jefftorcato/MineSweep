@@ -281,7 +281,7 @@ function refresh() {
     window.location.reload();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("load", function () {
     let playPromise = good_audio.play();
     if (playPromise !== undefined) {
         playPromise.then(_ => {
