@@ -285,13 +285,14 @@ document.addEventListener("DOMContentLoaded", function () {
     let playPromise = good_audio.play();
     if (playPromise !== undefined) {
         playPromise.then(_ => {
-                document.addEventListener('click', switchToGame, false);
-                c.addEventListener('click', leftmousePress, false);
-                c.addEventListener('contextmenu', rightmousePress, false);
-                document.getElementById('replay').addEventListener('click', refresh, false);
+            
             })
             .catch(error => {
                 console.log(error);
             });
     }
+    document.addEventListener('click', switchToGame, false);
+    c.addEventListener('click', leftmousePress, false);
+    c.addEventListener('contextmenu', rightmousePress, false);
+    document.getElementById('replay').addEventListener('click', refresh, false);
 });
