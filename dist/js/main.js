@@ -7,7 +7,7 @@ let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 let grid;
 let size = 0;
-let width = 50;
+let width;
 let total_mines = 0;
 let flag_count;
 let difficulty;
@@ -112,26 +112,29 @@ function setup(difficulty) {
 
     switch (difficulty) {
         case "Easy":
-            size = 8;
+            size = 10;
             c.setAttribute("width", "400");
             c.setAttribute("height", "400");
-            total_mines = 10;
+            total_mines = Math.floor((size*size/100) * 30);
+            width = 40;
             console.log(size);
             break;
 
         case "Medium":
-            size = 9;
+            size = 15;
             c.setAttribute("width", "450");
             c.setAttribute("height", "450");
-            total_mines = 30;
+            total_mines = Math.floor((size*size/100) * 30);
+            width = 30;
             console.log(size);
             break;
 
         case "Hard":
-            size = 10;
-            c.setAttribute("width", "500");
-            c.setAttribute("height", "500");
-            total_mines = 35;
+            size = 20;
+            c.setAttribute("width", "510");
+            c.setAttribute("height", "510");
+            total_mines = Math.floor((size*size/100) * 25);
+            width = 30;
             console.log(size);
             break;
 
@@ -191,7 +194,10 @@ function clear() {
 
 function gameOver() {
 
+    let overlay = document.getElementById('overlay');
     if(game_lost == true) {
+        let lose_text = document.getElementById('lose-text');
+        lose_text.style.display = 'block';
         let bad_audio = document.getElementById('gameOverBad');
         bad_audio.play();
         for (i = 0; i < size; i++) {
@@ -200,16 +206,17 @@ function gameOver() {
                 grid[i][j].show();
             }
         }
-        let overlay = document.getElementById('overlay');
+        
         setTimeout( function () {
             unfade(overlay);
         },1000);
         //overlay_timer(overlay);
         stopwatch.stop();
     } else {
+        let win_text = document.getElementById('win-text');
+        win_text.style.display = 'block';
         good_audio.load();
         good_audio.play();
-        let overlay = document.getElementById('overlay');
         setTimeout( function () {
             unfade(overlay);
         },1000);

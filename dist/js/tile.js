@@ -34,6 +34,7 @@ Tile.prototype.show = function () {
         ctx.clearRect(this.x, this.y, this.width, this.width);
         ctx.rect(this.x, this.y, this.width, this.width);
         ctx.stroke();
+        //ctx.drawImage(img_sqr,this.x,this.y,this.width,this.width);
     } else if (!this.revealed && this.flagged) {
         ctx.drawImage(img_flag, this.x + this.width * 0.25, this.y + this.width * 0.25, this.width * 0.5, this.width * 0.5);
     }

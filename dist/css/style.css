@@ -279,7 +279,9 @@ button.btn-reset:active {
 #overlay div.content div.text {
     font-size: -webkit-xxx-large;
     padding-bottom: 10%;
+    display: none;
 }
+
 
 /****************************************************
                 Audio Player
