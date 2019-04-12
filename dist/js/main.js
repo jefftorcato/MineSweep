@@ -285,8 +285,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let playPromise = good_audio.play();
     if (playPromise !== undefined) {
         playPromise.then(_ => {
-                // Automatic playback started!
-                // Show playing UI.
                 document.addEventListener('click', switchToGame, false);
                 c.addEventListener('click', leftmousePress, false);
                 c.addEventListener('contextmenu', rightmousePress, false);
