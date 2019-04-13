@@ -2,6 +2,8 @@
 let img_flag = document.getElementById("img-flag");
 let img_mine = document.getElementById("img-mine");
 let img_sqr = document.getElementById("img-sqt0");
+let img_closed = new Image();
+img_closed.src = 'dist/img/Closed.png';
 let good_audio = document.getElementById('theme');
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
@@ -21,6 +23,7 @@ function reset() { //Game reset
     stopwatch.stop();
     stopwatch.update("00:00");
     flag_count = total_mines;
+    mines_flagged = 0;
     mouse_pressed_first = false;
     updateGUI();
 
@@ -246,7 +249,7 @@ function leftmousePress(event) {
             if (grid[i][j].coordinates(x, y)) {
                 grid[i][j].reveal();
                 grid[i][j].show();
-                if (grid[i][j].mine) {
+                if (grid[i][j].mine && !grid[i][j].flagged) {
                     game_lost = true;
                     gameOver();
                 }
@@ -266,7 +269,7 @@ function rightmousePress(event) {
             if (grid[i][j].coordinates(x, y)) {
                 grid[i][j].markFlag();
                 updateGUI();
-                console.log("Mines flagged: " + mines_flagged + " " + "total Mines:" + total_mines);
+                //console.log("Mines flagged: " + mines_flagged + " " + "total Mines:" + total_mines);
                 if (mines_flagged == total_mines) {
                     game_lost = false;
                     gameOver();
