@@ -4,7 +4,9 @@ let img_mine = document.getElementById("img-mine");
 let img_sqr = document.getElementById("img-sqt0");
 let img_closed = new Image();
 img_closed.src = 'dist/img/Closed.png';
-let good_audio = document.getElementById('theme');
+//let good_audio = document.getElementById('theme');
+let good_audio = new Audio();
+good_audio.src = 'dist/audio/theme.mp3';
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 let grid;
@@ -285,6 +287,11 @@ function refresh() {
 }
 
 window.addEventListener("load", function () {
+    //good_audio.play();
+    document.addEventListener('click', switchToGame, false);
+    c.addEventListener('click', leftmousePress, false);
+    c.addEventListener('contextmenu', rightmousePress, false);
+    document.getElementById('replay').addEventListener('click', refresh, false);
     let playPromise = good_audio.play();
     if (playPromise !== undefined) {
         playPromise.then(_ => {
@@ -294,8 +301,4 @@ window.addEventListener("load", function () {
                 console.log(error);
             });
     }
-    document.addEventListener('click', switchToGame, false);
-    c.addEventListener('click', leftmousePress, false);
-    c.addEventListener('contextmenu', rightmousePress, false);
-    document.getElementById('replay').addEventListener('click', refresh, false);
 });
