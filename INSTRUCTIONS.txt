@@ -1,0 +1,10 @@
+The game has a menu audio, but since automatically playing audio is something browsers have become quite strict about, The audio doesn't play by default. It needs some user interaction 
+
+Temporary fix for now:
+1) Paste 'chrome://flags/#autoplay-policy' in chrome and set it to 'No user gesture is required'. You can revert back changes anytime. (Tested)
+2) Using live-server which is an npm package. (Tested)
+3) Works on wamp or xampp but not the first time around. Works in the next game. 
+
+Permanent Fix:
+Creating an overlay like a loading screen that users will have to click to reveal the menu.
+
